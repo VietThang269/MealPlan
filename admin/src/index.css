@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+img {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.mantine-Image-imageWrapper,
+.mantine-Image-figure,
+.mantine-Image-root {
+   height: 100%; 
+}
+
+a {
+  text-decoration: none;
+}
