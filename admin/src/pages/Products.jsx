@@ -3,14 +3,21 @@ import {
   Box,
   Button,
   createStyles,
+  Drawer,
+  FileInput,
   Flex,
+  MultiSelect,
+  NumberInput,
   Pagination,
   Select,
   Stack,
   Table,
   Text,
+  Textarea,
   TextInput,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import WithAsteriskCustoms from "../components/WithAsteriskCustoms";
 
 const Products = () => {
   const { classes } = makeStyles();
@@ -26,6 +33,7 @@ const Products = () => {
 
 const FilterProduct = () => {
   const { classes } = makeStyles();
+  const [opened, { open, close }] = useDisclosure(false);
 
   return (
     <Flex className={classes.flexFilter}>
@@ -55,9 +63,150 @@ const FilterProduct = () => {
         />
       </Box>
       <Box className={classes.box}>
-        <Button className={classes.button}>+ Add Product</Button>
+        <Button className={classes.button} onClick={open}>
+          + Add Product
+        </Button>
       </Box>
+
+      <DrawerAddProduct opened={opened} open={open} close={close} />
     </Flex>
+  );
+};
+
+const DrawerAddProduct = ({ opened, open, close }) => {
+  const { classes } = makeStyles();
+
+  return (
+    <Drawer
+      opened={opened}
+      onClose={close}
+      position="right"
+      size={700}
+      title={
+        <Stack spacing={0}>
+          <Text fw="bold">Add Product</Text>
+          <Text>Add your product and necessary information from here</Text>
+        </Stack>
+      }
+    >
+      {/* Drawer content */}
+      <Stack spacing={20}>
+        <Flex className={classes.flexDrawer}>
+          <Box className={classes.boxF1}>
+            <Text className={classes.titleDrawer}>
+              Product Image <WithAsteriskCustoms />
+            </Text>
+          </Box>
+          <Box className={classes.boxF1}>
+            <FileInput placeholder="Pick file" />
+          </Box>
+        </Flex>
+
+        <Flex className={classes.flexDrawer}>
+          <Box className={classes.boxF1}>
+            <Text className={classes.titleDrawer}>
+              Product Title/Name <WithAsteriskCustoms />
+            </Text>
+          </Box>
+          <Box className={classes.boxF1}>
+            <TextInput placeholder="Product Title/Name" />
+          </Box>
+        </Flex>
+
+        <Flex className={classes.flexDrawer}>
+          <Box className={classes.boxF1}>
+            <Text className={classes.titleDrawer}>
+              Product Description <WithAsteriskCustoms />
+            </Text>
+          </Box>
+          <Box className={classes.boxF1}>
+            <Textarea placeholder="Product Description" />
+          </Box>
+        </Flex>
+
+        <Flex className={classes.flexDrawer}>
+          <Box className={classes.boxF1}>
+            <Text className={classes.titleDrawer}>
+              Product Quantity <WithAsteriskCustoms />
+            </Text>
+          </Box>
+          <Box className={classes.boxF1}>
+            <NumberInput placeholder="Product Quantity" />
+          </Box>
+        </Flex>
+
+        <Flex className={classes.flexDrawer}>
+          <Box className={classes.boxF1}>
+            <Text className={classes.titleDrawer}>
+              Product Price <WithAsteriskCustoms />
+            </Text>
+          </Box>
+          <Box className={classes.boxF1}>
+            <NumberInput placeholder="Product Price" />
+          </Box>
+        </Flex>
+
+        <Flex className={classes.flexDrawer}>
+          <Box className={classes.boxF1}>
+            <Text className={classes.titleDrawer}>
+              Sale Price <WithAsteriskCustoms />
+            </Text>
+          </Box>
+          <Box className={classes.boxF1}>
+            <NumberInput placeholder="Sale Price" />
+          </Box>
+        </Flex>
+
+        <Flex className={classes.flexDrawer}>
+          <Box className={classes.boxF1}>
+            <Text className={classes.titleDrawer}>
+              Category <WithAsteriskCustoms />
+            </Text>
+          </Box>
+          <Box className={classes.boxF1}>
+            <MultiSelect
+              placeholder="choice"
+              data={[
+                { value: "react", label: "React" },
+                { value: "ng", label: "Angular" },
+                { value: "svelte", label: "Svelte" },
+                { value: "vue", label: "Vue" },
+                { value: "riot", label: "Riot" },
+                { value: "next", label: "Next.js" },
+                { value: "blitz", label: "Blitz.js" },
+              ]}
+            />
+          </Box>
+        </Flex>
+
+        <Flex className={classes.flexDrawer}>
+          <Box className={classes.boxF1}>
+            <Text className={classes.titleDrawer}>
+              Component <WithAsteriskCustoms />
+            </Text>
+          </Box>
+          <Box className={classes.boxF1}>
+            <MultiSelect
+              placeholder="choice"
+              data={[
+                { value: "react", label: "React" },
+                { value: "ng", label: "Angular" },
+                { value: "svelte", label: "Svelte" },
+                { value: "vue", label: "Vue" },
+                { value: "riot", label: "Riot" },
+                { value: "next", label: "Next.js" },
+                { value: "blitz", label: "Blitz.js" },
+              ]}
+            />
+          </Box>
+        </Flex>
+
+        <Flex gap={10} className={classes.flexBtnDrawer}>
+          <Button className={classes.boxF1}>Cancel</Button>
+          <Button className={classes.boxF1}>Add Product</Button>
+        </Flex>
+      </Stack>
+    </Drawer>
   );
 };
 
@@ -119,6 +268,21 @@ const makeStyles = createStyles(() => ({
 
   button: {
     width: "100%",
+  },
+
+  flexDrawer: {
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+  },
+  boxF1: {
+    flex: 1,
+  },
+  titleDrawer: {
+    fontSize: 14,
+  },
+
+  flexBtnDrawer: {
+    marginTop: 20,
   },
 }));
 export default Products;
