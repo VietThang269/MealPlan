@@ -2,12 +2,14 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LayoutDefault from "./layouts/LayoutDefault/LayoutDefault";
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import Home from "./pages/Home/Home";
 import Shop from "./pages/Shop/Shop";
 import About from "./pages/About/About";
 import Cart from "./pages/Cart/Cart";
 import ContactUs from "./pages/ContactUs/ContactUs";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -21,6 +23,18 @@ function App() {
           <Route path="contact-us" element={<ContactUs />} />
         </Route>
       </Routes>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        limit={3}
+      />
     </BrowserRouter>
   );
 }

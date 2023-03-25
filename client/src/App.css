@@ -112,6 +112,10 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.ReactModal__Overlay  {
+  z-index: 999;
+}
+
 .flex-1 {
   flex: 1;
 }
