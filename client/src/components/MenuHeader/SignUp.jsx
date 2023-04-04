@@ -1,5 +1,7 @@
 import React from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 const SignUp = ({ setRegister }) => {
   const {
@@ -8,6 +10,10 @@ const SignUp = ({ setRegister }) => {
     watch,
     formState: { errors },
   } = useForm();
+  const dispatch = useDispatch();
+
+  function hanldeLogin(data) {}
+
   return (
     <>
       <p
@@ -20,7 +26,7 @@ const SignUp = ({ setRegister }) => {
         SignUp
       </p>
       <form
-        onSubmit={handleSubmit((data) => console.log(data))}
+        onSubmit={handleSubmit((data) => hanldeLogin(data))}
         className="d-flex flex-column w-100"
         style={{
           gap: 20,
@@ -42,6 +48,16 @@ const SignUp = ({ setRegister }) => {
             {...register("email", { required: true })}
           />
         </label>
+        {errors.email && (
+          <span
+            style={{
+              fontSize: 12,
+              color: "red",
+            }}
+          >
+            This field is required
+          </span>
+        )}
         <label>
           Password:
           <input
@@ -55,9 +71,19 @@ const SignUp = ({ setRegister }) => {
             placeholder="Enter your password"
             className="w-100"
             type="password"
-            {...register("password", { required: true })}
+            {...register("password", { required: true, minLength: 6 })}
           />
         </label>
+        <span
+          style={{
+            fontSize: 12,
+            color: "red",
+          }}
+        >
+          {errors.password?.type === "required" && "This field is required"}
+          {errors.password?.type === "minLength" && "Min length is 6"}
+        </span>
+
         <label>
           Confirm password:
           <input
@@ -81,6 +107,16 @@ const SignUp = ({ setRegister }) => {
             })}
           />
         </label>
+        <span
+          style={{
+            fontSize: 12,
+            color: "red",
+          }}
+        >
+          {errors.confirm_password?.type === "required"
+            ? "This field is required"
+            : errors.confirm_password?.message}
+        </span>
         <button type="submit" className="btn btn-primary">
           Login
         </button>
