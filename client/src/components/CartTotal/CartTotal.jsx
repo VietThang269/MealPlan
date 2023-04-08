@@ -1,7 +1,10 @@
 import React from "react";
 import "./CartTotal.css";
+import { useSelector } from "react-redux";
+import { selectTotal } from "../../features/cart/cartSlice";
 
 const CartTotal = () => {
+  const totalData = useSelector(selectTotal);
   return (
     <div className="cart_total d-flex justify-content-end mt-5">
       <div>
@@ -13,7 +16,7 @@ const CartTotal = () => {
               <p className="m-0">Cart Subtotal</p>
             </div>
             <div className="cart_total_1_right px-3 py-4">
-              <p className="m-0">$47</p>
+              <p className="m-0">${totalData?.toFixed(2)}</p>
             </div>
           </div>
 
@@ -97,7 +100,7 @@ const CartTotal = () => {
               <p className="m-0">Order Total</p>
             </div>
             <div className="cart_total_1_right px-3 py-4">
-              <p className="m-0">$47</p>
+              <p className="m-0">${totalData?.toFixed(2)}</p>
             </div>
           </div>
         </div>

@@ -10,8 +10,19 @@ import About from "./pages/About/About";
 import Cart from "./pages/Cart/Cart";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import { ToastContainer } from "react-toastify";
+import PrivateRoute from "./layouts/PrivateRoute";
+import { useDispatch } from "react-redux";
+import { updateFromLocalStorage } from "./features/user/userSlice";
 
 function App() {
+  const dispatch = useDispatch();
+
+  React.useLayoutEffect(() => {
+    const data = localStorage.getItem("id");
+    if (data) {
+      dispatch(updateFromLocalStorage(JSON.parse(data)));
+    }
+  }, []);
   return (
     <BrowserRouter>
       <Routes>

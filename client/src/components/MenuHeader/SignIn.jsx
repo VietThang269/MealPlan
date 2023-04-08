@@ -1,12 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  requestSignIn,
+  selectIsLogin,
+  selectResponseUser,
+  selectToken,
+} from "../../features/user/userSlice";
+import { toast } from "react-toastify";
 
-const SignIn = ({ setRegister }) => {
+const SignIn = ({ setRegister, closeModal }) => {
+  const [submit, setSubmit] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const reponseUser = useSelector(selectResponseUser);
+  const tokenUser = useSelector(selectToken);
+  const isLoginUser = useSelector(selectIsLogin);
+
+  const dispatch = useDispatch();
+  function hanldeSignIn(values) {
+    setSubmit(true);
+    dispatch(requestSignIn(values));
+  }
+
+  useEffect(() => {
+    if (submit && !reponseUser.loading) {
+      toast(reponseUser.message);
+    }
+  }, [reponseUser.loading]);
+
+  useEffect(() => {
+    if (submit) {
+      if (isLoginUser) {
+        closeModal();
+      }
+    }
+  }, [isLoginUser]);
+
   return (
     <>
       <p
@@ -19,7 +53,7 @@ const SignIn = ({ setRegister }) => {
         Login
       </p>
       <form
-        onSubmit={handleSubmit((data) => console.log(data))}
+        onSubmit={handleSubmit((data) => hanldeSignIn(data))}
         className="d-flex flex-column w-100"
         style={{
           gap: 20,

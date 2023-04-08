@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Badge,
   Box,
   Button,
   createStyles,
@@ -212,27 +213,70 @@ const DrawerAddProduct = ({ opened, open, close }) => {
 
 const ListProducts = () => {
   const elements = [
-    { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
-    { position: 7, mass: 14.007, symbol: "N", name: "Nitrogen" },
-    { position: 39, mass: 88.906, symbol: "Y", name: "Yttrium" },
-    { position: 56, mass: 137.33, symbol: "Ba", name: "Barium" },
-    { position: 58, mass: 140.12, symbol: "Ce", name: "Cerium" },
+    {
+      id: 1,
+      name: "sp1",
+      category: "a & b",
+      price: 12.3,
+      stock: 20,
+      status: <Badge color="green">Sell</Badge>,
+      discount: 29,
+      detail: "",
+      published: "",
+      action: "",
+    },
+    {
+      id: 2,
+      name: "sp1",
+      category: "a & b",
+      price: 12.3,
+      stock: 20,
+      status: <Badge color="green">Sell</Badge>,
+      discount: 29,
+      detail: "",
+      published: "",
+      action: "",
+    },
+    {
+      id: 3,
+      name: "sp1",
+      category: "a & b",
+      price: 12.3,
+      stock: 20,
+      status: <Badge color="green">Sell</Badge>,
+      discount: 29,
+      detail: "",
+      published: "",
+      action: "",
+    },
   ];
   const ths = (
     <tr>
-      <th>Element position</th>
-      <th>Element name</th>
-      <th>Symbol</th>
-      <th>Atomic mass</th>
+      <th>ID</th>
+      <th>PRODUCT NAME</th>
+      <th>CATEGORY</th>
+      <th>PRICE</th>
+      <th>STOCK</th>
+      <th>STATUS</th>
+      <th>DISCOUNT</th>
+      <th>DETAILS</th>
+      <th>PUBLISHED</th>
+      <th>ACTIONS</th>
     </tr>
   );
 
   const rows = elements.map((element) => (
-    <tr key={element.name}>
-      <td>{element.position}</td>
+    <tr key={element.id}>
+      <td>{element.id}</td>
       <td>{element.name}</td>
-      <td>{element.symbol}</td>
-      <td>{element.mass}</td>
+      <td>{element.category}</td>
+      <td>{element.price}</td>
+      <td>{element.stock}</td>
+      <td>{element.status}</td>
+      <td>{element.discount}</td>
+      <td>{element.detail}</td>
+      <td>{element.published}</td>
+      <td>{element.action}</td>
     </tr>
   ));
 

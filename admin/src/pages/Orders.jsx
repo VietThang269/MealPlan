@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   createStyles,
@@ -61,29 +62,66 @@ const FilterOrder = () => {
   );
 };
 
-const ListOrders = () => {
+export const ListOrders = () => {
   const elements = [
-    { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
-    { position: 7, mass: 14.007, symbol: "N", name: "Nitrogen" },
-    { position: 39, mass: 88.906, symbol: "Y", name: "Yttrium" },
-    { position: 56, mass: 137.33, symbol: "Ba", name: "Barium" },
-    { position: 58, mass: 140.12, symbol: "Ce", name: "Cerium" },
+    {
+      id: 1,
+      time: "04/04/2023",
+      address: "198D Bạch Mai, Hai Bà Trưng, Hà Nội",
+      method: "COD",
+      amount: 123,
+      status: <Badge color="yellow">Pending</Badge>,
+      action: "",
+    },
+    {
+      id: 2,
+      time: "04/04/2023",
+      address: "198D Bạch Mai, Hai Bà Trưng, Hà Nội",
+      method: "COD",
+      amount: 123,
+      status: <Badge color="yellow">Pending</Badge>,
+      action: "",
+    },
+    {
+      id: 3,
+      time: "04/04/2023",
+      address: "198D Bạch Mai, Hai Bà Trưng, Hà Nội",
+      method: "COD",
+      amount: 123,
+      status: <Badge color="yellow">Pending</Badge>,
+      action: "",
+    },
+    {
+      id: 4,
+      time: "04/04/2023",
+      address: "198D Bạch Mai, Hai Bà Trưng, Hà Nội",
+      method: "COD",
+      amount: 123,
+      status: <Badge color="yellow">Pending</Badge>,
+      action: "",
+    },
   ];
   const ths = (
     <tr>
-      <th>Element position</th>
-      <th>Element name</th>
-      <th>Symbol</th>
-      <th>Atomic mass</th>
+      <th>ID</th>
+      <th>TIME</th>
+      <th>SHIPPING ADDRESS</th>
+      <th>METHOD</th>
+      <th>AMOUNT</th>
+      <th>STATUS</th>
+      <th>ACTION</th>
     </tr>
   );
 
   const rows = elements.map((element) => (
-    <tr key={element.name}>
-      <td>{element.position}</td>
-      <td>{element.name}</td>
-      <td>{element.symbol}</td>
-      <td>{element.mass}</td>
+    <tr key={element.id}>
+      <td>{element.id}</td>
+      <td>{element.time}</td>
+      <td>{element.address}</td>
+      <td>{element.method}</td>
+      <td>{element.amount}</td>
+      <td>{element.status}</td>
+      <td>{element.action}</td>
     </tr>
   ));
   return (

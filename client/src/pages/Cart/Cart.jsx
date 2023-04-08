@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TopPage from "../../components/TopPage/TopPage";
 import "./Cart.css";
 
 import CartItem from "../../components/CartItem/CartItem";
 import CartTotal from "../../components/CartTotal/CartTotal";
 
+import { useDispatch, useSelector } from "react-redux";
+import { requestGetCart, selectListCard } from "../../features/cart/cartSlice";
+import { selectId } from "../../features/user/userSlice";
 const Cart = () => {
+  const dispatch = useDispatch();
+  const listCart = useSelector(selectListCard);
+  const idUser = useSelector(selectId);
+
+  useEffect(() => {
+    if (idUser !== "") {
+      dispatch(requestGetCart({ userId: idUser || "0" }));
+    }
+  }, [dispatch, idUser]);
+
   return (
     <div className="cart">
       <TopPage
@@ -41,10 +54,14 @@ const Cart = () => {
           </div>
 
           <div className="cart_items d-flex flex-column">
-            <CartItem />
-            <CartItem />
-            <CartItem />
-            <CartItem />
+            {listCart?.map((item, index) => (
+              <CartItem
+                key={index}
+                id={item.id}
+                quanity={item.quanity}
+                price={item.price}
+              />
+            ))}
 
             <div className="cart_item px-5 d-flex justify-content-between align-items-center py-3 gap-4">
               <div className="d-flex gap-3 align-items-center column_mobile">

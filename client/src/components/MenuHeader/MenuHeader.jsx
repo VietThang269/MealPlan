@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import IconCart from "../../assets/icons/IconCart";
 import IconHamburger from "../../assets/icons/IconHamburger";
 import IconSearch from "../../assets/icons/IconSearch";
+import AvatarLogin from "../../assets/imgs/avatar_login.png";
+
 import Modal from "react-modal";
 import { useForm } from "react-hook-form";
 
@@ -10,6 +12,9 @@ import IconClose from "../../assets/icons/IconClose";
 import "./MenuHeader.css";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut, selectIsLogin } from "../../features/user/userSlice";
+import { toast } from "react-toastify";
 
 const customStyles = {
   content: {
@@ -28,6 +33,9 @@ const customStyles = {
 const MenuHeader = ({ open, setOpen }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [isResgister, setRegister] = React.useState(false);
+  const isLogin = useSelector(selectIsLogin);
+
+  const dispatch = useDispatch();
 
   function openModal() {
     setIsOpen(true);
@@ -37,6 +45,11 @@ const MenuHeader = ({ open, setOpen }) => {
     setIsOpen(false);
   }
   const navigate = useNavigate();
+
+  function hanldeLogout() {
+    dispatch(logOut());
+    toast("Đăng xuất thành công !", { type: "success" });
+  }
 
   return (
     <div className="d-flex menu_header gap-4 align-items-center">
@@ -49,9 +62,21 @@ const MenuHeader = ({ open, setOpen }) => {
         <IconCart />
       </div>
 
-      <button className="btn btn-primary" onClick={openModal}>
-        Login
-      </button>
+      {isLogin ? (
+        <img
+          onClick={hanldeLogout}
+          src={AvatarLogin}
+          alt=""
+          style={{
+            width: 45,
+            height: 45,
+          }}
+        />
+      ) : (
+        <button className="btn btn-primary" onClick={openModal}>
+          Login
+        </button>
+      )}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -75,9 +100,9 @@ const MenuHeader = ({ open, setOpen }) => {
             <IconClose />
           </div>
           {isResgister ? (
-            <SignUp setRegister={setRegister} />
+            <SignUp setRegister={setRegister} closeModal={closeModal} />
           ) : (
-            <SignIn setRegister={setRegister} />
+            <SignIn setRegister={setRegister} closeModal={closeModal} />
           )}
         </div>
       </Modal>

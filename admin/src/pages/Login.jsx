@@ -18,8 +18,11 @@ import { toast } from "react-toastify";
 import IconFb from "../assets/icons/IconFb";
 import IconGoogle from "../assets/icons/IconGoogle";
 
+import { useDispatch } from "react-redux";
+
 const Login = () => {
   const { classes } = makeStyles();
+  const dispatch = useDispatch();
 
   const form = useForm({
     initialValues: {
@@ -27,6 +30,10 @@ const Login = () => {
       password: "",
     },
   });
+
+  function handleSignIn(values) {
+    console.log("values", values);
+  }
 
   return (
     <Container className={classes.container}>
@@ -38,7 +45,7 @@ const Login = () => {
         <Box className={classes.boxFlex}>
           <form
             onSubmit={form.onSubmit((values) => {
-              console.log("hi");
+              handleSignIn(values);
             })}
           >
             <Stack>

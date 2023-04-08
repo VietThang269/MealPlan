@@ -3,6 +3,8 @@ import { Outlet, useLocation } from "react-router-dom";
 import Drawer from "../../components/Drawer/Drawer";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
+import { useDispatch } from "react-redux";
+import { updateFromLocalStorage } from "../../features/user/userSlice";
 
 const LayoutDefault = () => {
   const [open, setOpen] = React.useState(false);

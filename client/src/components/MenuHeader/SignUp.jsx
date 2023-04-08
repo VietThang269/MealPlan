@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  requestSignUp,
+  selectIsLogin,
+  selectResponseUser,
+} from "../../features/user/userSlice";
+import { toast } from "react-toastify";
 
-const SignUp = ({ setRegister }) => {
+const SignUp = ({ setRegister, closeModal }) => {
+  const [submit, setSubmit] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -11,8 +19,28 @@ const SignUp = ({ setRegister }) => {
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
+  const reponseUser = useSelector(selectResponseUser);
+  const isLoginUser = useSelector(selectIsLogin);
 
-  function hanldeLogin(data) {}
+  function hanldeLogin(data) {
+    setSubmit(true);
+    const { confirm_password, ...restData } = data;
+    dispatch(requestSignUp(restData));
+  }
+
+  useEffect(() => {
+    if (submit && !reponseUser.loading) {
+      toast(reponseUser.message);
+    }
+  }, [reponseUser.loading]);
+
+  useEffect(() => {
+    if (submit) {
+      if (isLoginUser) {
+        closeModal();
+      }
+    }
+  }, [isLoginUser]);
 
   return (
     <>
